@@ -1,0 +1,73 @@
+<!DOCTYPE html> 
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banco de Coleta e Doação de Sangue</title>
+    <script src="../static/js/recebedores.js"></script>
+</head>
+<body>
+
+    <h2>Recebedor</h2>
+
+    <div class="container">
+
+        <a href="/" class="btnVoltar">
+            <button id="btnVoltar" type="button">Voltar
+        </a>
+    </button>
+
+        <button id="btnCadastrar" type="button">Cadastrar Recebedor</button>
+
+        <form id="form" action="#" method="post" style="display: none;">
+            <h2 id="form-title">Adicionar recebedor</h2>
+
+            <div>
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" required/>
+            </div>
+
+            <div>
+                <label for="idade">Idade:</label>
+                <input type="text" id="idade" name="idade" required/>
+            </div>
+
+            <div>
+                <label for="tipoSanguineo">Tipo Sanguíneo:</label>
+                <input type="text" id="tipoSanguineo" name="tipoSanguineo" required/>
+            </div>
+
+            <div>
+                <label for="motivoDoacao">Motivo da Doação:</label>
+                <input type="text" id="motivoDoacao" name="motivoDoacao" required/>
+            </div>
+
+            <div>
+                <button type="submit">Cadastrar</button>
+
+                <button id="btnCancelar" type="button">Cancelar</button>
+            </div>
+        </form>
+
+        <div class="tabela-recebedores">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Idade</th>
+                        <th>Tipo Sanguíneo</th>
+                        <th>Motivo da Doação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- lista -->
+                </tbody>
+
+                <button id="btnEditar" type="button">Editar</button>
+                <button id="btnDeletar" type="button">Deletar</button>
+            </table>
+        </div>
+        
+    </div>
+</body>
+</html>

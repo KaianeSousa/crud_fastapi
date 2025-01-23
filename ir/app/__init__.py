@@ -1,0 +1,2 @@
+def os():
+    return None
