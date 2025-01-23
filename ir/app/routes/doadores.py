@@ -9,13 +9,13 @@ templates = Jinja2Templates(directory="templates")
 
 router = APIRouter()
 
-@router.get("/", response_model=List[schemas.DoadorBase])
+@router.get("/listar", response_model=List[schemas.DoadorBase])
 def listar_doadores(request: Request, db: Session = Depends(get_db)):
     print("Iniciando listagem de doadores")
     try:
         doadores = db.query(models.Doador).all()
         print(doadores) 
-        return templates.TemplateResponse("doadores.html", {"request": request, "doadores": doadores})
+        return doadores
     except Exception as e:
         print(f"Erro: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Erro ao listar doadores: {str(e)}")

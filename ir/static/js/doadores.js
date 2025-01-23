@@ -9,13 +9,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const idade = document.getElementById("idade");
     const tipoSanguineo = document.getElementById("tipoSanguineo");
     const ultimaDoacao = document.getElementById("ultimaDoacao");
-    const tabelaDoadores = document.querySelector(".tabela-doadores tbody");
+    const tabelaDoadores = document.querySelector(".tabela-doadores-body");
 
     async function carregarDoadores() {
         try {
             const response = await fetch(`${apiUrl}/listar`);
             if (response.ok) {
                 const doadores = await response.json();
+                console.log(doadores);
                 tabelaDoadores.innerHTML = "";
                 doadores.forEach(doador => {
                     const row = document.createElement("tr");
@@ -72,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                     alert("Doador atualizado com sucesso!");
                                     form.reset();
                                     form.style.display = "none";
-                                    carregarDoadores();
+                                    await carregarDoadores();
                                 } else {
                                     const error = await response.json();
                                     alert("Erro ao atualizar doador: " + JSON.stringify(error));
@@ -98,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         });
                         if (response.ok) {
                             alert("Doador deletado com sucesso!");
-                            carregarDoadores();
+                            await carregarDoadores();
                         } else {
                             alert("Erro ao deletar doador");
                         }
@@ -134,7 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     alert("Doador adicionado com sucesso!");
                     form.reset();
                     form.style.display = "none";
-                    carregarDoadores();
+                    await carregarDoadores();
                 } else {
                     const error = await response.json();
                     alert("Erro ao adicionar doador: " + JSON.stringify(error));

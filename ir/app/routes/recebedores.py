@@ -9,13 +9,13 @@ templates = Jinja2Templates(directory="templates")
 
 router = APIRouter()
 
-@router.get("/", response_model=List[schemas.RecebedorBase])
+@router.get("/listar", response_model=List[schemas.RecebedorBase])
 def listar_recebedores(request: Request, db: Session = Depends(get_db)):
     print("Iniciando listagem de recebedores")
     try:
-        doadores = db.query(models.Doador).all()
-        print(doadores) 
-        return templates.TemplateResponse("recebedores.html", {"request": request, "recebedores": doadores})
+        recebedor = db.query(models.Recebedor).all()
+        print(recebedor)
+        return recebedor
     except Exception as e:
         print(f"Erro: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Erro ao listar recebedores: {str(e)}")

@@ -5,10 +5,36 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnCadastrar = document.getElementById("btnCadastrar");
     const btnCancelar = document.getElementById("btnCancelar");
     const form = document.getElementById("form");
-    const nome = document.getElementById("nome");
-    const idade = document.getElementById("idade");
-    const tipoSanguineo = document.getElementById("tipoSanguineo");
-    const motivoDoacao = document.getElementById("motivoDoacao");
+    const tabelaRecebedores = document.querySelector(".tabela-recebedores-body");
+
+
+    async function carregarRecebedores() {
+        try {
+            const response = await fetch(`${apiUrl}/listar`);
+            if (response.ok) {
+                const recebedores = await response.json();
+                console.log(recebedores);
+                tabelaRecebedores.innerHTML = "";
+                recebedores.forEach(recebedor => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${recebedor.nome}</td>
+                        <td>${recebedor.idade}</td>
+                        <td>${recebedor.tipo_sanguineo}</td>
+                        <td>${recebedor.necessidades_de_sangue}</td>
+                        <td>
+                            <button class="btnEditar" data-id="${recebedor.id}" type="button">Editar</button>
+                            <button class="btnDeletar" data-id="${recebedor.id}" type="button">Deletar</button>
+                        </td>
+                    `;
+                    tabelaRecebedores.appendChild(row);
+                });
+            }
+        } catch (e) {
+            alert("Erro ao carregar recebedores: " + e.message);
+        }
+    }
+
 
     btnCadastrar.addEventListener("click", () => {
         form.reset();
@@ -27,8 +53,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const data = {
             nome: formData.get("nome"),
             idade: formData.get("idade"),
-            tipoSanguineo: formData.get("tipoSanguineo"),
-            motivoDoacao: formData.get("motivoDoacao"),
+            tipo_sanguineo: formData.get("tipoSanguineo"),
+            necessidades_de_sangue: formData.get("motivoDoacao"),
         };
 
         try {
@@ -42,6 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (response.ok) {
                 alert("Recebedor adicionado com sucesso!");
+                await carregarRecebedores()
                 form.reset();
             } else {
                 const error = await response.json();
@@ -51,4 +78,5 @@ document.addEventListener("DOMContentLoaded", () => {
             alert("Não foi possível adicionar ao banco: " + e.message);
         }
     });
+    carregarRecebedores()
 });
