@@ -1,0 +1,23 @@
+
+services:
+  app:
+    image: fastapi
+    build:
+      context: .
+    volumes:
+      - ./app:/app  
+    ports:
+      - "8000:8000"
+   
+
+  db:
+    image: postgres
+    ports: 
+      - "5433:5433"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - ./.env
+
+volumes:
+  postgres_data:  
